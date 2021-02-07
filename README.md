@@ -8,6 +8,8 @@ A user should be able to enter a new movie, see a list of all their movies, and 
 
 Movies have a title, a boolean indicating whether it has been watched or not, a human-readable date created, and, if marked as watched, a human-readable date that it was marked as watched. These dates should _not_ be user-editable but set programmatically when a movie is saved or edited.
 
+![simple-mockup](wireframe.png)
+
 CSS is not important in this project, but you can add minimal styling as needed. Basic styling is being provided with [PicnicCSS](https://picnicss.com/), and a `style.css` is included in the repo.
 
 **You may not be able to get to everything** so make some decisions about where to start and what to do later.
