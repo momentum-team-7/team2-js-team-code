@@ -2,3 +2,11 @@ body {
   margin: 10px;
   box-sizing: border-box;
 }
+
+.movie {
+  border: 2px solid green;
+}
+
+.movie-watched {
+  border: 3px solid blue;
+}
