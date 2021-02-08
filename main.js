@@ -14,12 +14,16 @@ document.addEventListener('click', e => {
     if (e.target.className ==="movie-watched") {
         if (e.target.innerHTML !== 'watched') {
         e.target.innerHTML = "watched"
-        
+        let finishedMovieDate = document.createElement('p')
+        let date = moment().format("MMM Do YY")
+        finishedMovieDate.innerHTML = date
+        e.target.parentElement.appendChild(finishedMovieDate)
+        editWatched(e.target, date)
         } else {
             e.target.innerHTML = 'not watched'
         }
     }
-    return moment().format("MMM Do YY")
+    
 })
 
 // for (let movie of movies) {
@@ -34,8 +38,8 @@ function listAllMovies() {
         .then(res => res.json())
         .then(data => {
             console.log(data[0].title)
-            for (let d of data) {
-                renderMovie(d.title, d.watched, d.created_at, d.id)
+            for (let movie of data) {
+                renderMovie(movie)
             }
         })
 }
@@ -61,28 +65,29 @@ function addMovie() {
         })
 }
 
-function editWatched (movie) {
-
-    fetch (`${url}${movie.parentElement.id}`, {
+function editWatched (element, time) {
+    const movieId = element.parentElement.id
+    fetch (`http://localhost:3000/movies/${movieId}`, {
         method: 'PATCH',
         headers: { 'Content-Type' : 'application/json' },
         body: JSON.stringify ({
-            watched_at: moment().format("MMM Do YY")
+            watched_at: time
         })
     })
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        renderMovie(element.parentElement, data)
+        // renderMovie(element.parentElement, data)
+        // listAllMovies()
     })
 }
 
 
 
-function renderMovie(title, watched, date, id){
+function renderMovie(movie){
     let movieDiv = document.createElement('div')
     movieDiv.className = 'movie'
-    movieDiv.id = id
+    movieDiv.id = movie.id
     let movieEl = document.createElement('p')
     let movieWatched = document.createElement('div')
     movieWatched.className = "movie-watched"
@@ -92,9 +97,9 @@ function renderMovie(title, watched, date, id){
     // movieWatched.name = 'name'
     // movieWatched.value = watched
     let movieDate = document.createElement('p')
-    movieEl.innerHTML = title
+    movieEl.innerHTML = movie.title
     // movieWatched.innerHTML = watched
-    movieDate.innerHTML = date
+    movieDate.innerHTML = movie.date
 
 
     movieDiv.appendChild(movieEl)
@@ -105,6 +110,10 @@ function renderMovie(title, watched, date, id){
 }
 
 listAllMovies()
+
+
+
+
 
 
 
