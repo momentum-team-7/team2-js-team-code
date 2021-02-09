@@ -16,7 +16,8 @@
   <container>
     <form id="mainInput">
       <div id="filmInput">
-        <input type="text" placeholder="Film I'd like to Watch">
+        <input type="text" placeholder="Film I'd like to Watch" required=""
+          oninvalid="this.setCustomValidity('Please enter a Movie Title')">
       </div>
 
       <div id="submitButton">

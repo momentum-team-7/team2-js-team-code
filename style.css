@@ -5,6 +5,7 @@ body {
 
 .movie {
   border: 2px solid green;
+  margin: 1%;
 }
 
 .movie-watched {
