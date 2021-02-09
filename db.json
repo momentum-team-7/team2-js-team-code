@@ -1,3 +1,19 @@
 {
-  "movies": []
+  "movies": [
+    {
+      "title": "Shrek ",
+      "watched_at": "Feb 9th 21",
+      "id": 1
+    },
+    {
+      "title": "Catch me if you can",
+      "watched_at": null,
+      "id": 2
+    },
+    {
+      "title": "Ice Age",
+      "watched_at": null,
+      "id": 3
+    }
+  ]
 }

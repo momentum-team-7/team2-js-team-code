@@ -11,17 +11,22 @@ form.addEventListener('submit', function (e) {
 })
 
 document.addEventListener('click', e => {
+    let finishedMovieDate = document.createElement('p')
+    finishedMovieDate.className = "movie-watched-date"
     if (e.target.className === "movie-watched") {
 
-        if (e.target.innerHTML !== 'watched') {
+        if (e.target.innerHTML !== 'Watched') {
             e.target.innerHTML = "Watched"
-            let finishedMovieDate = document.createElement('p')
             let date = moment().format("MMM Do YY")
             finishedMovieDate.innerHTML = date
             e.target.parentElement.appendChild(finishedMovieDate)
             editWatched(e.target, date)
         } else {
-            e.target.innerHTML = 'not watched'
+            let date = moment().format("MMM Do YY")
+            e.target.innerHTML = 'Not Watched'
+            editWatched(e.target, date)
+            let dateDiv = document.querySelector(".movie-watched-date")
+            dateDiv.remove()
         }
 
     } else if (e.target.className === "delete-button") {
@@ -69,17 +74,19 @@ function addMovie() {
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            renderMovie(data)
         })
 }
 
-function editWatched(element, time) {
+function editWatched(element, date) {
     const movieId = element.parentElement.id
+    let elHTML = element.innerHTML;
 
     fetch(`http://localhost:3000/movies/${movieId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            watched_at: time
+            watched_at: (elHTML === "Not Watched") ? null : date
         })
     })
         .then(res => res.json())
